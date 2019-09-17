@@ -6,16 +6,14 @@
   "author": "Nick Tests",
   "license": "MIT",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "test": "./node_modules/.bin/mocha 'tests/**/*.js' "
   },
   "engines": {
     "node": "10.16.2"
   },
   "directories": {
     "test": "tests"
-  },
-  "scripts": {
-    "test": "./node_modules/.bin/mocha 'tests/**/*.js' "
   },
   "dependencies": {
     "@hapi/joi": "^15.1.1",
