@@ -1,6 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const Institutions = require('../database/models').Institutions
+
 module.exports = class CsvProcessor {
     constructor(folderPath) {
         this.$csvPath = folderPath;
