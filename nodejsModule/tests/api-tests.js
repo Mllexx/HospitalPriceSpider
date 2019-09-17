@@ -28,6 +28,7 @@ describe('landing-page', ()=>{
  * Test CSV Listing endpoint
  */
 describe('CSV files Listing', ()=>{
+<<<<<<< HEAD
     it('should GET a listing of the CSV files in the local folder', (done)=>{
         chai.request(server)
         .get('/api/csv-files')
@@ -99,6 +100,12 @@ describe('DB Initialization endpoint', ()=>{
         .get('/api/update/google-spreadsheets-hospital-services')
         .end(($err,$res)=>{
             
+=======
+    it('should GET a listing of the CSV files in the rawCSV folder', (done)=>{
+        chai.request(server)
+        .get('/api/csv-files')
+        .end(($err,$res)=>{
+>>>>>>> Installation of test dependancies and creation of two sample api tests
             ($res).should.have.status(200);
             ($res.body).should.be.a('array');
             done();
