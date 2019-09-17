@@ -625,6 +625,9 @@ app.get('/api/update/institutions', (req, res) => {
 
 
 const port = process.env.PORT || 3007;
-app.listen(port, () => {
+//save the server object into a variable
+var server = app.listen(port, () => {
     console.log('listening to port....# ', port)
-})
+});
+//export the server object
+module.exports = server;
