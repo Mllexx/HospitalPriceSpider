@@ -5,13 +5,10 @@ chai.use(chaiHttp);
 let server = require('../index.js');
 
 /**
-<<<<<<< HEAD
  * @todo Add more test points to each end-point's test case
  */
 
 /**
-=======
->>>>>>> Installation of test dependancies and creation of two sample api tests
  * Test the api landing page
  */
 describe('landing-page', ()=>{
@@ -19,10 +16,8 @@ describe('landing-page', ()=>{
         chai.request(server)
         .get('/')
         .end(($err,$res)=>{
-<<<<<<< HEAD
             //console.log($res);
-=======
->>>>>>> Installation of test dependancies and creation of two sample api tests
+            //console.log($res);
             ($res).should.have.status(200);
             ($res.body).should.be.a('object');
             done();
@@ -34,7 +29,6 @@ describe('landing-page', ()=>{
  * Test CSV Listing endpoint
  */
 describe('CSV files Listing', ()=>{
-<<<<<<< HEAD
     it('should GET a listing of the CSV files in the local folder', (done)=>{
         chai.request(server)
         .get('/api/csv-files')
@@ -135,12 +129,48 @@ describe('XLS/XLSX files Listing', ()=>{
         chai.request(server)
         .get('/api/data/local-spread-sheets')
         .end(($err,$res)=>{
-=======
     it('should GET a listing of the CSV files in the rawCSV folder', (done)=>{
         chai.request(server)
         .get('/api/csv-files')
         .end(($err,$res)=>{
->>>>>>> Installation of test dependancies and creation of two sample api tests
+    it('should GET a listing of the CSV files in the local folder', (done)=>{
+        chai.request(server)
+        .get('/api/csv-files')
+        .end(($err,$res)=>{
+            
+            ($res).should.have.status(200);
+            ($res.body).should.be.a('array');
+            done();
+        });
+    });
+});
+
+
+/**
+ * Convert CSV file to JSON
+ * 
+ **/
+describe('Convert CSV file to JSON', ()=>{
+    it('should GET the data in the CSV file provided in JSON Format', (done)=>{
+        chai.request(server)
+        .get('/api/csvdata/:id')
+        .end(($err,$res)=>{
+            
+            ($res).should.have.status(200);
+            ($res.body).should.be.a('array');
+            done();
+        });
+    });
+});
+
+/**
+ * XLS/XLSX files listing endpoint
+ */
+describe('XLS/XLSX files Listing', ()=>{
+    it('should GET a listing of the spreadsheet files in the local folder', (done)=>{
+        chai.request(server)
+        .get('/api/data/local-spread-sheets')
+        .end(($err,$res)=>{
             ($res).should.have.status(200);
             ($res.body).should.be.a('array');
             done();
