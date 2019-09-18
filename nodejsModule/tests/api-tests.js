@@ -28,7 +28,6 @@ describe('landing-page', ()=>{
  * Test CSV Listing endpoint
  */
 describe('CSV files Listing', ()=>{
-<<<<<<< HEAD
     it('should GET a listing of the CSV files in the local folder', (done)=>{
         chai.request(server)
         .get('/api/csv-files')
@@ -99,13 +98,36 @@ describe('DB Initialization endpoint', ()=>{
         chai.request(server)
         .get('/api/update/google-spreadsheets-hospital-services')
         .end(($err,$res)=>{
-            
-=======
-    it('should GET a listing of the CSV files in the rawCSV folder', (done)=>{
+        });
+    });
+});
+
+
+/**
+ * Convert CSV file to JSON
+ * 
+ **/
+describe('Convert CSV file to JSON', ()=>{
+    it('should GET the data in the CSV file provided in JSON Format', (done)=>{
         chai.request(server)
-        .get('/api/csv-files')
+        .get('/api/csvdata/:id')
         .end(($err,$res)=>{
->>>>>>> Installation of test dependancies and creation of two sample api tests
+            
+            ($res).should.have.status(200);
+            ($res.body).should.be.a('array');
+            done();
+        });
+    });
+});
+
+/**
+ * XLS/XLSX files listing endpoint
+ */
+describe('XLS/XLSX files Listing', ()=>{
+    it('should GET a listing of the spreadsheet files in the local folder', (done)=>{
+        chai.request(server)
+        .get('/api/data/local-spread-sheets')
+        .end(($err,$res)=>{
             ($res).should.have.status(200);
             ($res.body).should.be.a('array');
             done();
