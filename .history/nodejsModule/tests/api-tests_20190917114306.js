@@ -12,7 +12,7 @@ describe('landing-page', ()=>{
         chai.request(server)
         .get('/')
         .end(($err,$res)=>{
-            //console.log($res);
+            console.log($res);
             ($res).should.have.status(200);
             ($res.body).should.be.a('object');
             done();
