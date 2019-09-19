@@ -5,10 +5,6 @@ chai.use(chaiHttp);
 let server = require('../index.js');
 
 /**
- * @todo Add more test points to each end-point's test case
- */
-
-/**
  * Test the api landing page
  */
 describe('landing-page', ()=>{

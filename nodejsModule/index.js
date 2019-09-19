@@ -674,6 +674,29 @@ app.get('/api/update/institutions-from-online-spreadsheet', async (req, res) => 
                 /**
                  * Validate required values before proceeding
                  */
+                let newData = {
+                    uuid: uuid(),
+                    rId: row.rid,// double
+                    itemName: 'Test', //string
+                    //hospitalId: 'Test', // double
+                    price: 'Test', //double
+                    avgPrice: 'Test', //double
+                    type: row.type, // string
+                    medianPrice: 'Test', // double
+                    sampleSize: 'Test', // double
+                    outpatientAvgPrice: 'Test', //double
+                    inpatientAvgPrice: 'Test', // double
+                    latestPriceDate: 'Test', // string
+                    firstPriceDate: 'Test', // string
+                    changeSinceLastUpdate: 'Test', // double
+                    description: 'Test', // string
+                    relatedItemsFromOthers: 'Test', // json
+                    relatedItemsFromThisLocation: 'Test', // json
+                    itemsRequiredForThis: 'Test', // json
+                    keywords: 'Test', // json
+                    country: row.country, // string
+                    currency: 'Test' // string
+                }
 
                 if (row.rid) { // Though every row has rid
 

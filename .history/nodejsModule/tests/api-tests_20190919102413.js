@@ -5,10 +5,6 @@ chai.use(chaiHttp);
 let server = require('../index.js');
 
 /**
- * @todo Add more test points to each end-point's test case
- */
-
-/**
  * Test the api landing page
  */
 describe('landing-page', ()=>{
@@ -94,7 +90,7 @@ describe('Googlesheet files Listing', ()=>{
  * Googlesheet importation endpoint
  */
 describe('DB Initialization endpoint', ()=>{
-    it('Run DB migrations and initial DB setup', (done)=>{
+    it('should GET a listing of the spreadsheet files in the local folder', (done)=>{
         chai.request(server)
         .get('/api/update/google-spreadsheets-hospital-services')
         .end(($err,$res)=>{
