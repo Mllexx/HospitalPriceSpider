@@ -1,24 +1,24 @@
 {
   "development": {
     "username": "root",
-    "password": "1234abc",
-    "database": "medhack_dev",
+    "password": null,
+    "database": "database_development",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false
   },
   "test": {
     "username": "root",
-    "password": "1234abc",
-    "database": "medhack_test",
+    "password": null,
+    "database": "database_test",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false
   },
   "production": {
     "username": "root",
-    "password": "1234abc",
-    "database": "medhack_prod",
+    "password": null,
+    "database": "database_production",
     "host": "127.0.0.1",
     "dialect": "mysql",
     "operatorsAliases": false
