@@ -65,7 +65,12 @@ app.use(express.json())
  * Serves as the homepage
  */
 app.get('/', (req, res) => {
-    res.send('Hello And welcome go to http://localhost:3007/api/csv-files , to view available csv files');
+    // RANDOM TESTS GO HERE
+    const CsvProcessor = require('./services/csvProcessor');
+    const $processor = new CsvProcessor();
+    console.log($processor.getFileInfo());
+    
+    //res.send('Hello And welcome go to http://localhost:3007/api/csv-files , to view available csv files');
 })
 
 
