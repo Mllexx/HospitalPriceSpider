@@ -11,8 +11,6 @@ const uuid = require('uuid/v4')
 const _ = require('lodash')
 const cors = require('cors')
 const app = express()
-//CSV Path
-const $csvPath = path.join(__dirname,'../rawCSVs');
 
 //Database
 const sequelize = require('./database/models').sequelize
@@ -66,41 +64,10 @@ app.use(express.json())
  */
 app.get('/', (req, res) => {
     // RANDOM TESTS GO HERE
-    const CsvProcessor = require('./services/csvProcessor');
-    const $processor = new CsvProcessor($csvPath);
-    $list = $processor.getFileList($csvPath);
-    $list.forEach($file => {
-        $header = $processor.getFileHeader($file);
-        $cleanheader = $processor.cleanUpHeader($header);
-        $map = $processor.colMapping($cleanheader.row);
-        $fileinfo = {
-            'path':$csvPath+'\\'+$file,
-            'header':$cleanheader,
-            'map':$map,
-        };
-        $processor.processFile($fileinfo);
-    });
-    /**
-    var $list = Institutions.findAll({
-        attributes: ['rId', 'hospitalName', 'itemColumnName', 'avgPriceColumnName',
-            'priceSampleSizeColumnName', 'extraColumnName', 'categoryColumnName',
-            'medianPricingColumnName', 'outPatientPriceColumnName', 'inPatientPriceColumnName','removedHeaderRowsForCSV',
-            'savedRepoTableName'],
-        raw: true
-    }).then(function($institutions){
-        $institutions.forEach($file => {
-            var $fname = $file.hospitalName+".csv";
-            var $xx = $processor.getFileHeader($fname);
-            if($xx !== false){
-                //proceed
-                console.log($xx);
-            }
-        });
-    });
-    */
-
-    res.send('Hello And welcome go to http://localhost:3007/api/csv-files , to view available csv files');
-});
+    const $processor = require('./services/csvProcessor');
+    var $d = $processor.getFileInfo();
+    //res.send('Hello And welcome go to http://localhost:3007/api/csv-files , to view available csv files');
+})
 
 
 /**

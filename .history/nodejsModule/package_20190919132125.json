@@ -5,7 +5,6 @@
   "main": "index.js",
   "author": "Nick Tests",
   "license": "MIT",
-<<<<<<< HEAD
   "scripts": {
     "start": "node index.js",
     "test": "./node_modules/.bin/mocha 'tests/**/*.js' "
@@ -16,14 +15,6 @@
   "directories": {
     "test": "tests"
   },
-=======
-  "directories": {
-    "test": "tests"
-  },
-  "scripts": {
-    "test": "./node_modules/.bin/mocha 'tests/**/*.js' "
-  },
->>>>>>> origin/master
   "dependencies": {
     "@hapi/joi": "^15.1.1",
     "axios": "^0.19.0",
