@@ -6,7 +6,7 @@
   "author": "Nick Tests",
   "license": "MIT",
   "scripts": {
-    "start": "node --max-old-space-size=6076 index.js",
+    "start": "node index.js",
     "test": "./node_modules/.bin/mocha 'tests/**/*.js' "
   },
   "engines": {
@@ -14,12 +14,6 @@
   },
   "directories": {
     "test": "tests"
-  },
-  "directories": {
-    "test": "tests"
-  },
-  "scripts": {
-    "test": "./node_modules/.bin/mocha 'tests/**/*.js' "
   },
   "dependencies": {
     "@hapi/joi": "^15.1.1",
@@ -39,7 +33,6 @@
     "uuid": "^3.3.3"
   },
   "devDependencies": {
-    "move-file": "^1.2.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "cors": "^2.8.5",

@@ -11,6 +11,8 @@ const uuid = require('uuid/v4')
 const _ = require('lodash')
 const cors = require('cors')
 const app = express()
+//CSV Path
+const $csvPath = path.join(__dirname,'../rawCSVs');
 
 //Database
 const sequelize = require('./database/models').sequelize

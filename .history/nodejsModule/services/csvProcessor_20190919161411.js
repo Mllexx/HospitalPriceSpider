@@ -1,11 +1,11 @@
 const path = require('path');
 const fs = require('fs');
 const Institutions = require('../database/models').Institutions
-
 module.exports = class CsvProcessor {
     constructor(folderPath) {
         this.$csvPath = folderPath;
     }
+
     getFileInfo(){
         var $institutions;
         var $list = Institutions.findAll({
@@ -16,7 +16,7 @@ module.exports = class CsvProcessor {
             raw: true
         }).then(function($institutions){
             $institutions.forEach($file => {
-                console.log($file.hospitalName);
+                
             });
         });
     }
@@ -126,9 +126,4 @@ module.exports = class CsvProcessor {
         var $searchstring =new RegExp("/[\$\xA2-\xA5\u058F\u060B\u09F2\u09F3\u09FB\u0AF1\u0BF9\u0E3F\u17DB\u20A0-\u20BD\uA838\uFDFC\uFE69\uFF04\uFFE0\uFFE1\uFFE5\uFFE6]/");
         return $searchstring.test($col);
     }
-    //Check File Type by checking the folder its in
-    isCsvType($filename){}
-    isXlsType($filename){}
-    isPdfType($filename){}
-    isXlsxType($filename){}
 }

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/.idea/nodejsModule.iml" filepath="$PROJECT_DIR$/.idea/nodejsModule.iml" />
+      <module fileurl="file://C:/Apache24/htdocs/smartbill_mw/.idea/smartbill-backup.iml" filepath="C:/Apache24/htdocs/smartbill_mw/.idea/smartbill-backup.iml" />
+    </modules>
+  </component>
+</project>
