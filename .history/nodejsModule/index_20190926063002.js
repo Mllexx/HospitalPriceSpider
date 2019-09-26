@@ -16,8 +16,6 @@ const $csvPath = path.join(__dirname,'../rawCSVs');
 
 //Database
 const sequelize = require('./database/models').sequelize
-//const Op = Sequelize.Op
-const Op = require('Sequelize').Op
 const Institutions = require('./database/models').Institutions
 const Procedures = require('./database/models').Procedures
 
@@ -1061,10 +1059,7 @@ app.get('/api/update/institutions-from-local-spreadsheet', async (req, res) => {
 app.get('/api/csv-to-db', async (req, res) => {
 
     // Get file names from institutions Table
-    const $fileNames = await Institutions.findAll({
-        where:{'hasSpreadSheet':1},
-        //    [Op.or]:[1,'TRUE']
-        //}},
+    const $fileNames = await Institutions.findAll(
         attributes:[
         'id',
         'uuid',
@@ -1074,14 +1069,8 @@ app.get('/api/csv-to-db', async (req, res) => {
         'itemColumnName',
         'avgPriceColumnName',
         'savedRepoTableName',
-        'hasSpreadSheet']
-    }).map(item => item.get({ plain: true }));
-    //console.log($fileNames);
-
-    $fileNames.each(function($file){
-        console.log($file);
-    });
-
+        'hasSpreadSheet']).map(item => item.get({ plain: true }))
+    console.log($fileNames);
     //const $institutions = await Institutions.findAll({}).map(item => item.get({ plain: true }))
     //console.log($institutions);
     /*

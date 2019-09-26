@@ -16,8 +16,6 @@ const $csvPath = path.join(__dirname,'../rawCSVs');
 
 //Database
 const sequelize = require('./database/models').sequelize
-//const Op = Sequelize.Op
-const Op = require('Sequelize').Op
 const Institutions = require('./database/models').Institutions
 const Procedures = require('./database/models').Procedures
 
@@ -1061,29 +1059,10 @@ app.get('/api/update/institutions-from-local-spreadsheet', async (req, res) => {
 app.get('/api/csv-to-db', async (req, res) => {
 
     // Get file names from institutions Table
-    const $fileNames = await Institutions.findAll({
-        where:{'hasSpreadSheet':1},
-        //    [Op.or]:[1,'TRUE']
-        //}},
-        attributes:[
-        'id',
-        'uuid',
-        'rId',
-        'hospitalName',
-        'currentPricingUrl',
-        'itemColumnName',
-        'avgPriceColumnName',
-        'savedRepoTableName',
-        'hasSpreadSheet']
-    }).map(item => item.get({ plain: true }));
-    //console.log($fileNames);
-
-    $fileNames.each(function($file){
-        console.log($file);
-    });
-
-    //const $institutions = await Institutions.findAll({}).map(item => item.get({ plain: true }))
-    //console.log($institutions);
+    const $fileNames = await Institutions.findAll({}).map(item => item.get('savedRepoTableName'))
+    console.log($fileNames);
+    const $institutions = await Institutions.findAll({}).map(item => item.get({ plain: true }))
+    console.log($institutions);
     /*
    await _.forEach(institutions,async (institution) => {
 

@@ -1062,7 +1062,7 @@ app.get('/api/csv-to-db', async (req, res) => {
 
     // Get file names from institutions Table
     const $fileNames = await Institutions.findAll({
-        where:{'hasSpreadSheet':1},
+        where:{'hasSpreadSheet':1}
         //    [Op.or]:[1,'TRUE']
         //}},
         attributes:[

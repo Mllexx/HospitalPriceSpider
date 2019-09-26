@@ -1062,9 +1062,9 @@ app.get('/api/csv-to-db', async (req, res) => {
 
     // Get file names from institutions Table
     const $fileNames = await Institutions.findAll({
-        where:{'hasSpreadSheet':1},
-        //    [Op.or]:[1,'TRUE']
-        //}},
+        where:{'hasSpreadSheet':{
+            [Op.or]:[1,true,'TRUE','true']
+        }},
         attributes:[
         'id',
         'uuid',
@@ -1074,14 +1074,8 @@ app.get('/api/csv-to-db', async (req, res) => {
         'itemColumnName',
         'avgPriceColumnName',
         'savedRepoTableName',
-        'hasSpreadSheet']
-    }).map(item => item.get({ plain: true }));
-    //console.log($fileNames);
-
-    $fileNames.each(function($file){
-        console.log($file);
-    });
-
+        'hasSpreadSheet']}).map(item => item.get({ plain: true }))
+    console.log($fileNames);
     //const $institutions = await Institutions.findAll({}).map(item => item.get({ plain: true }))
     //console.log($institutions);
     /*
