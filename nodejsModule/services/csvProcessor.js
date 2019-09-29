@@ -26,31 +26,43 @@ module.exports = class CsvProcessor {
         return $f.filter(el => /\.csv$/.test(el));
     }
     getFileHeader($filePath) {
-        var $content = fs.readFileSync(this.$csvPath + '\\' + $filePath, 'utf8');
-        var $lines = $content.split('\n');
-        var $linecount = $lines.length - 1;
-        var $midfile = Math.round($linecount / 2, 0);
-        var $testline = $lines[$midfile];
-        //remove line breaks and split by delimiter (comma)
-        var $t = $testline.replace(/(\r\n|\n|\r)/gm, "");
-        var $tt = $t.match(/(?:[^\,"]+|"[^"]*")+/g);
-        // Get derived column count
-        var $colCount = $tt.length;
-        // get header row (check the first 10 lines)
-        var $counter = 0;
-        var $header = null;
-        while ($counter < 10) {
-            var $headertest = $lines[$counter];
-            var $a = $headertest.replace(/(\r\n|\n|\r)/gm, "");
-            var $aa = $a.match(/(?:[^\,"]+|"[^"]*")+/g);
-            if ($aa !== null && $aa.length === $colCount) {
-                $header = $aa;
-                break;
+        try{
+            //var $content = fs.readFileSync(this.$csvPath + '\\' + $filePath, 'utf8');
+            var $content = fs.readFileSync($filePath, 'utf8');
+            var $lines = $content.split('\n');
+            var $linecount = $lines.length - 1;
+            var $midfile = Math.round($linecount / 2, 0);
+            var $testline = $lines[$midfile];
+            //remove line breaks and split by delimiter (comma)
+            var $t = $testline.replace(/(\r\n|\n|\r)/gm, "");
+            var $tt = $t.match(/(?:[^\,"]+|"[^"]*")+/g);
+            // Get derived column count
+            var $colCount = $tt.length;
+            // get header row (check the first 10 lines)
+            var $counter = 0;
+            var $header = null;
+            while ($counter < 10) {
+                var $headertest = $lines[$counter];
+                var $a = $headertest.replace(/(\r\n|\n|\r)/gm, "");
+                var $aa = $a.match(/(?:[^\,"]+|"[^"]*")+/g);
+                if ($aa !== null && $aa.length === $colCount) {
+                    $header = $aa;
+                    break;
+                }
+                $counter++;
             }
-            $counter++;
+            //do some cleanup (trim/remove whitespace and special chars)
+            let $f = {};
+            $f = {
+                'header':$header,
+                'hline':$counter,
+                'content':$lines
+            };
+            return $f;
+        }catch ($e) {
+            //console.log($e);
         }
-        //do some cleanup (trim/remove whitespace and special chars)
-        return $header;
+
     }
 
     cleanUpHeader($header){
@@ -92,6 +104,7 @@ module.exports = class CsvProcessor {
                     $hospital.push(i);
                 }
             }
+            let $list={};
             return $list={
                 'itemName':$service,
                 'price':$price,

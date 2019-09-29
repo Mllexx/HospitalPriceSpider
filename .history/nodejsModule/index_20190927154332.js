@@ -994,7 +994,64 @@ app.get('/api/update/institutions-from-local-spreadsheet', async (req, res) => {
 
         res.send(e)
     }
-    /**/
+    /*
+    const dummyInstitution = [
+        {hospitalName: 'hospital Name 01', website: 'www.hospitalname.com'},
+        {hospitalName: 'hospital Name 02', website: 'www.hospitalname2.com'},
+        {hospitalName: 'hospital Name 03', website: 'www.hospitalname3.com'},
+        {hospitalName: 'hospital Name 04', website: 'www.hospitalname4.com'},
+        {hospitalName: 'hospital Name 05', website: 'www.hospitalname5.com'},
+    ]
+
+    try {
+        _.forEach(dummyInstitution, (institution) => {
+            // insert items in database Institutions table
+            let newInstitution = {
+                uuid: uuid(), //string
+                rId: 'Test!!', //double
+                hospitalName: 'Test!!',//string
+                city: 'Test!!',//string
+                region: 'Test!!',//string
+                country: 'Test!!',//string
+                streetAddress: 'Test!!',//string
+                numberLocation: 'Test!!',//int
+                ownedBy: 'Test!!',//string
+                managedBy: 'Test!!',//string
+                keyShareholdersAndPeople: 'Test!!',//json
+                grossRevenueFiscal: 'Test!!',//double
+                annualReportDocs: 'Test!!',//json
+                website: 'Test!!',//string
+                currentPricingUrl: 'Test!!',//string
+                itemColumnName: 'Test!!',//string
+                avgPriceColumnName: 'Test!!',//string
+                priceSampleSizeColumnName: 'Test!!',//string
+                medianPricingColumnName: 'Test!!',//string
+                outPatientPriceColumnName: 'Test!!',//string
+                inpatientPriceColumnName: 'Test!!',//string
+                removedHeaderRowsForCSV: 'Test!!',//int
+                longitude: 'Test!!',//double
+                latitude: 'Test!!',//double
+                founded: 'Test!!',//data
+                type: 'Test!!',  //string
+                nonProfit: 'Test!!',//bol
+                communityHospital: 'Test!!', // bol
+                savedRepoTableName: 'Test!!' // string
+            }
+
+            let institutionInstance = Institutions.build(
+                newInstitution
+            )
+
+            institutionInstance.save().then((insertedInstitution) => {
+                //console.log('insertedInstitution...',insertedInstitution)
+            })
+        })
+
+        res.send(dummyInstitution)  // we may send the inserted object(s) instead of the raw spreadsheet
+    } catch (e) {
+        res.send(e)
+    }*/
+
 
 })
 //--------------------------End of database endpoints------------------------------------------------------------------
@@ -1002,14 +1059,10 @@ app.get('/api/update/institutions-from-local-spreadsheet', async (req, res) => {
 
 /* MULEKE DEV ENDPOINT */
 app.get('/api/csv-to-db', async (req, res) => {
-    const CsvProcessor = require('./services/csvProcessor');
-    const $processor = new CsvProcessor();
-
 
     // Get file names from institutions Table
     const $fileNames = await Institutions.findAll({
-        //where:{'hasSpreadSheet':1},
-        where:{'hasSpreadSheet':'TRUE'},
+        where:{'hasSpreadSheet':1},
         attributes:[
         'id',
         'uuid',
@@ -1022,7 +1075,7 @@ app.get('/api/csv-to-db', async (req, res) => {
         'hasSpreadSheet']
     }).map(item => item.get({ plain: true }));
     $a = $fileNames[0];
-    var $records = 0;
+
     const $k = Object.values($fileNames);
     for(const $a of $k){
         //validate the mandatory fields
@@ -1044,45 +1097,7 @@ app.get('/api/csv-to-db', async (req, res) => {
             //attempt to get price column using regex
             continue;
         }
-        //console.log($a.savedRepoTableName);
-        var $fullpath = $csvPath + '\\' + $filename+".csv";
-        var $dd = $processor.getFileHeader($fullpath);
-
-        if($dd!==undefined){
-            try{
-                var $h = $processor.cleanUpHeader($dd.header);
-                var $hmap = $processor.colMapping($h);
-                //console.log($hmap);
-                if(($hmap.itemName.length>0) && ($hmap.price.length>0)){
-                    //console.log($h);
-                    //console.log($hmap);
-                    //console.log($dd.content);
-                    var $c = parseInt($dd.hline);
-                    while($c<$dd.content.length){
-                        var $row = $dd.content[$c];
-                        var $i = $hmap.price[0];
-                        //change into object
-                        var $robject = $row.split(',');
-                        var $trow = {
-                            'rId':$a.rId,
-                            'price':$robject[$hmap.price[0]],
-                            'itemname':$robject[$hmap.itemName[0]],
-                        };
-                        $records++;
-                        console.log($trow);
-                        //console.log($row[$hmap.price[0]]);
-                        $c++;
-                    }
-                }
-            }
-            catch ($e) {
-                 $h = null;
-                 //console.log($e);
-            }
-        }
-        else {
-            //console.log("File not found");
-        }
+        //console.log($a);
         /*
         var $d = csvToJsonService().fromFile($csvPath + '\\' + $filename+".csv")
                                  .then((jsonObj)=>{
@@ -1097,7 +1112,7 @@ app.get('/api/csv-to-db', async (req, res) => {
         //var $linecount = $lines.length - 1;
         // each csv file by its file name in relation to this institution
         //const csvFileName = institution.savedRepoTableName
-        // const dataUrl = `${homeUrl}/api/csvdata/${$filename}.csv` // call this endpoint within this app
+        const dataUrl = `${homeUrl}/api/csvdata/${$filename}.csv` // call this endpoint within this app
         //const dataUrl = $csvPath + '\\' + $filename+".csv" // call this endpoint within this app
         /*
         await axios.get(dataUrl)
@@ -1111,7 +1126,6 @@ app.get('/api/csv-to-db', async (req, res) => {
                 */
 
     }
-    console.log("Counter:"+$records);
 })
 
 
@@ -1119,7 +1133,7 @@ app.get('/api/csv-to-db', async (req, res) => {
 
 
 
-const port = process.env.PORT || 3008;
+const port = process.env.PORT || 3007;
 //save the server object into a variable
 var server = app.listen(port, () => {
     console.log('listening to port....# ', port)
